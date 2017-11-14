@@ -19,7 +19,7 @@ import java.text.Normalizer
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
 import java.time.temporal.TemporalAccessor
-import java.util.Locale
+import java.util.*
 
 private val daysLookup = (1..31).associate { it.toLong() to getOrdinal(it) }
 
@@ -31,7 +31,7 @@ val englishDateFormatter = DateTimeFormatterBuilder()
         .appendPattern("yyyy")
         .toFormatter(Locale.ENGLISH)
 
-fun String.slugify() = toLowerCase()
+fun String.urlify() = toLowerCase()
         .stripAccents()
         .replace("\n".toRegex(), " ")
         .replace("[^a-z\\d\\s]".toRegex(), " ")

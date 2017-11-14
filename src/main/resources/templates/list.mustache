@@ -1,0 +1,21 @@
+{{> header}}
+
+<h1 class="content-subhead">Top movies</h1>
+
+<div class="movies">
+
+    {{#movies}}
+        <section class="movie">
+            <header class="movie-header">
+                <h2 class="movie-title"><a href="/{{url}}">{{title}}</a></h2>
+                <div class="movie-meta">By <strong>{{director.firstname}} {{director.lastname}}</strong>, on <strong>{{releaseDate}}</strong></div>
+            </header>
+            <div class="movie-description">
+                {{headline}}
+            </div>
+        </section>
+    {{/movies}}
+</div>
+
+
+{{> footer}}

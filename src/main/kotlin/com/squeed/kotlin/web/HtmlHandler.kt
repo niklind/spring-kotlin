@@ -16,25 +16,23 @@
 package com.squeed.kotlin.web
 
 import com.squeed.kotlin.MarkdownConverter
-import com.squeed.kotlin.repository.PostRepository
-import com.squeed.kotlin.repository.UserRepository
+import com.squeed.kotlin.repository.DirectorRepository
+import com.squeed.kotlin.repository.MovieRepository
 import org.springframework.stereotype.Component
-
 import org.springframework.web.reactive.function.server.ServerRequest
-import org.springframework.web.reactive.function.server.ServerResponse.*
-
+import org.springframework.web.reactive.function.server.ServerResponse.ok
 import reactor.core.publisher.toMono
 
 @Component
-class HtmlHandler(private val userRepository: UserRepository, private val postRepository: PostRepository, private val markdownConverter: MarkdownConverter) {
+class HtmlHandler(private val directorRepository: DirectorRepository, private val movieRepository: MovieRepository, private val markdownConverter: MarkdownConverter) {
 
-    fun blog(req: ServerRequest) = ok()
-            .render("blog", mapOf(
-                    "title" to "Blog",
-                    "posts" to postRepository.findAll().flatMap { it.toDto(userRepository, markdownConverter) }
+    fun list(req: ServerRequest) = ok()
+            .render("list", mapOf(
+                    "title" to "Movie List",
+                    "movies" to movieRepository.findAll().flatMap { it.toDto(directorRepository, markdownConverter) }
             ))
 
-    fun post(req: ServerRequest) = ok()
-            .render("post", mapOf("post" to postRepository.findById(req.pathVariable("slug")).flatMap { it.toDto(userRepository, markdownConverter) }.switchIfEmpty(IllegalArgumentException("Wrong post slug provided").toMono())))
+    fun movie(req: ServerRequest) = ok()
+            .render("movie", mapOf("movie" to movieRepository.findById(req.pathVariable("url")).flatMap { it.toDto(directorRepository, markdownConverter) }.switchIfEmpty(IllegalArgumentException("Wrong movie url provided").toMono())))
 
 }

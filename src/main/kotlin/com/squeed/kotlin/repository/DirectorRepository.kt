@@ -13,22 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.squeed.kotlin.web
+package com.squeed.kotlin.repository
 
-import com.squeed.kotlin.repository.UserRepository
-import org.springframework.stereotype.Component
+import com.squeed.kotlin.model.Director
 
-import org.springframework.web.reactive.function.server.ServerRequest
-import org.springframework.web.reactive.function.server.ServerResponse.*
-import org.springframework.web.reactive.function.server.body
+import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import org.springframework.stereotype.Repository
 
-@Component
-class UserHandler(private val repository: UserRepository) {
-
-    fun findAll(req: ServerRequest) =
-            ok().body(repository.findAll())
-
-    fun findOne(req: ServerRequest) =
-            ok().body(repository.findById(req.pathVariable("login")))
-
-}
+@Repository
+interface DirectorRepository : ReactiveCrudRepository<Director, String>

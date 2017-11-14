@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.squeed.kotlin.repository
+package com.squeed.kotlin.web
 
-import com.squeed.kotlin.model.Post
-import com.squeed.kotlin.model.PostEvent
-import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener
-import org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent
+import com.squeed.kotlin.repository.DirectorRepository
 import org.springframework.stereotype.Component
+import org.springframework.web.reactive.function.server.ServerRequest
+import org.springframework.web.reactive.function.server.ServerResponse.ok
+import org.springframework.web.reactive.function.server.body
 
 @Component
-class PostEventListener(private val postEventRepository: PostEventRepository) : AbstractMongoEventListener<Post>() {
+class DirectorHandler(private val repository: DirectorRepository) {
 
-    override fun onAfterSave(event: AfterSaveEvent<Post>) {
-        postEventRepository.save(PostEvent(event.source.slug, event.source.title)).block()
-    }
+    fun findAll(req: ServerRequest) =
+            ok().body(repository.findAll())
+
+    fun findOne(req: ServerRequest) =
+            ok().body(repository.findById(req.pathVariable("id")))
 
 }

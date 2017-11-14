@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.squeed.kotlin.repository
+package com.squeed.kotlin.model
 
-import com.squeed.kotlin.model.Post
-import org.springframework.data.mongodb.repository.Tailable
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import org.springframework.stereotype.Repository
-import reactor.core.publisher.Flux
-
-@Repository
-interface PostRepository : ReactiveCrudRepository<Post, String> {
-
-    @Tailable
-    fun findWithTailableCursorBy(): Flux<Post>
-
-}
+@Document
+data class Director(
+        @Id val id: String,
+        val firstname: String,
+        val lastname: String,
+        val description: String? = null)

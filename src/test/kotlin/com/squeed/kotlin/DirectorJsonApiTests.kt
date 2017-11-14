@@ -15,7 +15,7 @@
  */
 package com.squeed.kotlin
 
-import com.squeed.kotlin.model.User
+import com.squeed.kotlin.model.Director
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -23,11 +23,11 @@ import org.springframework.web.reactive.function.client.bodyToFlux
 import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.test.test
 
-class UserJsonApiTests : AbstractIntegrationTests() {
+class DirectorJsonApiTests : AbstractIntegrationTests() {
 
     @Test
     fun `Assert FindAll JSON API is parsed correctly and contains 11 elements`() {
-        client.get().uri("/api/user/").retrieve().bodyToFlux<User>()
+        client.get().uri("/api/user/").retrieve().bodyToFlux<Director>()
                 .test()
                 .expectNextCount(11)
                 .verifyComplete()
@@ -35,7 +35,7 @@ class UserJsonApiTests : AbstractIntegrationTests() {
 
     @Test
     fun `Verify findOne JSON API`() {
-        client.get().uri("/api/user/MkHeck").retrieve().bodyToMono<User>()
+        client.get().uri("/api/user/MkHeck").retrieve().bodyToMono<Director>()
                 .test()
                 .consumeNextWith {
                     assertThat(it.login).isEqualTo("MkHeck")

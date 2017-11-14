@@ -1,15 +1,14 @@
 package com.squeed.kotlin.model
 
-import java.time.LocalDateTime
-
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
+import java.time.LocalDateTime
 
 @Document
-data class Post(
-    @Id val slug: String,
+data class Movie(
+    @Id val url: String,
     val title: String,
     val headline: String,
-    val content: String,
-    val author: String,
-    val addedAt: LocalDateTime = LocalDateTime.now())
+    val plot: String,
+    val director: String,
+    val releaseDate: LocalDateTime = LocalDateTime.now())

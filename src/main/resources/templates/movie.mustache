@@ -1,0 +1,16 @@
+{{> header}}
+
+<section class="movie">
+    <header class="movie-header">
+        <h1 class="movie-title">{{movie.title}}</h1>
+        <p class="movie-meta">By  <strong>{{movie.director.firstname}} {{movie.director.lastname}}</strong>, on <strong>{{movie.releaseDate}}</strong></p>
+    </header>
+
+    <div class="movie-description">
+        {{movie.headline}}
+
+        {{movie.plot}}
+    </div>
+</section>
+
+{{> footer}}

@@ -17,8 +17,8 @@ package com.squeed.kotlin
 
 import java.time.LocalDateTime
 
-import com.squeed.kotlin.model.Post
-import com.squeed.kotlin.model.PostEvent
+import com.squeed.kotlin.model.Movie
+import com.squeed.kotlin.model.MovieReleasedEvent
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
@@ -27,11 +27,11 @@ import org.springframework.web.reactive.function.client.bodyToFlux
 import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.test.test
 
-class PostJsonApiTests : AbstractIntegrationTests() {
+class MovieJsonApiTests : AbstractIntegrationTests() {
 
     @Test
     fun `Assert findAll JSON API is parsed correctly and contains 3 elements`() {
-        client.get().uri("/api/post/").retrieve().bodyToFlux<Post>()
+        client.get().uri("/api/post/").retrieve().bodyToFlux<Movie>()
                 .test()
                 .expectNextCount(3)
                 .verifyComplete()
@@ -39,7 +39,7 @@ class PostJsonApiTests : AbstractIntegrationTests() {
 
     @Test
     fun `Verify findOne JSON API`() {
-        client.get().uri("/api/post/reactor-bismuth-is-out").retrieve().bodyToMono<Post>()
+        client.get().uri("/api/post/reactor-bismuth-is-out").retrieve().bodyToMono<Movie>()
                 .test()
                 .consumeNextWith {
                     assertThat(it.title).isEqualTo("Reactor Bismuth is out")
@@ -52,7 +52,7 @@ class PostJsonApiTests : AbstractIntegrationTests() {
 
     @Test
     fun `Verify findOne JSON API with Markdown converter`() {
-        client.get().uri("/api/post/reactor-bismuth-is-out?converter=markdown").retrieve().bodyToMono<Post>()
+        client.get().uri("/api/post/reactor-bismuth-is-out?converter=markdown").retrieve().bodyToMono<Movie>()
                 .test()
                 .consumeNextWith {
                     assertThat(it.title).startsWith("Reactor Bismuth is out")
@@ -73,10 +73,10 @@ class PostJsonApiTests : AbstractIntegrationTests() {
 
     @Test
     fun `Verify post JSON API and notifications via SSE`() {
-        client.get().uri("/api/post/notifications").accept(MediaType.TEXT_EVENT_STREAM).retrieve().bodyToFlux<PostEvent>()
+        client.get().uri("/api/post/notifications").accept(MediaType.TEXT_EVENT_STREAM).retrieve().bodyToFlux<MovieReleasedEvent>()
                 .take(1)
                 .doOnSubscribe {
-                    client.post().uri("/api/post/").syncBody(Post("foo", "Foo", "foo", "foo", "mark", LocalDateTime.now())).exchange().subscribe()
+                    client.post().uri("/api/post/").syncBody(Movie("foo", "Foo", "foo", "foo", "mark", LocalDateTime.now())).exchange().subscribe()
                 }
                 .test()
                 .consumeNextWith {

@@ -13,14 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.squeed.kotlin.model
+package com.squeed.kotlin.repository
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
+import com.squeed.kotlin.model.Movie
+import org.springframework.data.mongodb.repository.Tailable
 
-@Document
-data class User(
-        @Id val login: String,
-        val firstname: String,
-        val lastname: String,
-        val description: String? = null)
+import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import org.springframework.stereotype.Repository
+import reactor.core.publisher.Flux
+
+@Repository
+interface MovieRepository : ReactiveCrudRepository<Movie, String> {
+
+    @Tailable
+    fun findWithTailableCursorBy(): Flux<Movie>
+
+}

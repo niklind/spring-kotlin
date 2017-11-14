@@ -17,25 +17,25 @@ package com.squeed.kotlin.web
 
 import com.squeed.kotlin.MarkdownConverter
 import com.squeed.kotlin.formatDate
-import com.squeed.kotlin.model.Post
-import com.squeed.kotlin.model.User
-import com.squeed.kotlin.repository.UserRepository
+import com.squeed.kotlin.model.Director
+import com.squeed.kotlin.model.Movie
+import com.squeed.kotlin.repository.DirectorRepository
 
-data class PostDto(
-        val slug: String,
+data class MovieDto(
+        val url: String,
         val title: String,
         val headline: String,
-        val content: String,
-        val author: User,
-        val addedAt: String)
+        val plot: String,
+        val director: Director,
+        val releaseDate: String)
 
-fun Post.toDto(userRepository: UserRepository, markdownConverter: MarkdownConverter) = userRepository.findById(author).map {
-    PostDto(
-            slug,
+fun Movie.toDto(directorRepository: DirectorRepository, markdownConverter: MarkdownConverter) = directorRepository.findById(director).map {
+    MovieDto(
+            url,
             title,
             markdownConverter.invoke(headline),
-            markdownConverter.invoke(content),
+            markdownConverter.invoke(plot),
             it,
-            addedAt.formatDate()
+            releaseDate.formatDate()
     )
 }

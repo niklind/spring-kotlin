@@ -16,44 +16,44 @@
 package com.squeed.kotlin.web
 
 import com.squeed.kotlin.MarkdownConverter
-import com.squeed.kotlin.model.Post
-import com.squeed.kotlin.repository.PostEventRepository
-import com.squeed.kotlin.repository.PostRepository
+import com.squeed.kotlin.model.Movie
+import com.squeed.kotlin.repository.MovieReleasedEventRepository
+import com.squeed.kotlin.repository.MovieRepository
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
-import org.springframework.web.reactive.function.server.ServerResponse.*
+import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.body
 import org.springframework.web.reactive.function.server.bodyToMono
 import org.springframework.web.reactive.function.server.bodyToServerSentEvents
 import reactor.core.publisher.toMono
 
 @Component
-class PostHandler(private val postRepository: PostRepository,
-                  private val postEventRepository: PostEventRepository,
-                  private val markdownConverter: MarkdownConverter) {
+class MovieHandler(private val movieRepository: MovieRepository,
+                   private val movieReleasedEventRepository: MovieReleasedEventRepository,
+                   private val markdownConverter: MarkdownConverter) {
 
-    val notifications = postEventRepository.count().flatMapMany { postEventRepository.findWithTailableCursorBy().skip(it) }.share()
+    val notifications = movieReleasedEventRepository.count().flatMapMany { movieReleasedEventRepository.findWithTailableCursorBy().skip(it) }.share()
 
     fun findAll(req: ServerRequest) =
-            ok().body(postRepository.findAll())
+            ok().body(movieRepository.findAll())
 
     fun findOne(req: ServerRequest) =
             ok().body(req.queryParam("converter")
                     .map {
                         if (it == "markdown")
-                            postRepository.findById(req.pathVariable("slug")).map {
+                            movieRepository.findById(req.pathVariable("url")).map {
                                 it.copy(
                                         headline = markdownConverter.invoke(it.headline),
-                                        content = markdownConverter.invoke(it.content))
+                                        plot = markdownConverter.invoke(it.plot))
                             }
                         else IllegalArgumentException("Only markdown converter is supported").toMono() }
-                    .orElse(postRepository.findById(req.pathVariable("slug"))))
+                    .orElse(movieRepository.findById(req.pathVariable("url"))))
 
     fun save(req: ServerRequest) =
-            ok().body(postRepository.saveAll(req.bodyToMono<Post>()))
+            ok().body(movieRepository.saveAll(req.bodyToMono<Movie>()))
 
     fun delete(req: ServerRequest) =
-            ok().body(postRepository.deleteById(req.pathVariable("slug")))
+            ok().body(movieRepository.deleteById(req.pathVariable("url")))
 
     fun notifications(req: ServerRequest) =
             ok().bodyToServerSentEvents(notifications)

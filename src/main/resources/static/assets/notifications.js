@@ -4,11 +4,11 @@
     });
 // }
 
-let eventSource = new EventSource("/api/post/notifications");
+let eventSource = new EventSource("/api/movie/notifications");
 eventSource.addEventListener("message", function(e) {
-    let post = JSON.parse(e.data);
-    let notification = new Notification(post.title);
+    let movie = JSON.parse(e.data);
+    let notification = new Notification(movie.title);
     notification.onclick = function() {
-        window.location.href = "/" + post.slug;
+        window.location.href = "/" + movie.url;
     };
 });

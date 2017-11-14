@@ -23,27 +23,27 @@ import org.springframework.web.reactive.function.server.router
 
 @Configuration
 class Router(private val htmlHandler: HtmlHandler,
-             private val userHandler: UserHandler,
-             private val postHandler: PostHandler) {
+             private val directorHandler: DirectorHandler,
+             private val movieHandler: MovieHandler) {
 
     @Bean
     fun appRouter() = router {
         accept(APPLICATION_JSON).nest {
-            "/api/user".nest {
-                GET("/", userHandler::findAll)
-                GET("/{login}", userHandler::findOne)
+            "/api/director".nest {
+                GET("/", directorHandler::findAll)
+                GET("/{id}", directorHandler::findOne)
             }
-            "/api/post".nest {
-                GET("/", postHandler::findAll)
-                GET("/{slug}", postHandler::findOne)
-                POST("/", postHandler::save)
-                DELETE("/{slug}", postHandler::delete)
+            "/api/movie".nest {
+                GET("/", movieHandler::findAll)
+                GET("/{url}", movieHandler::findOne)
+                POST("/", movieHandler::save)
+                DELETE("/{url}", movieHandler::delete)
             }
         }
-        (GET("/api/post/notifications") and accept(TEXT_EVENT_STREAM)).invoke(postHandler::notifications)
+        (GET("/api/movie/notifications") and accept(TEXT_EVENT_STREAM)).invoke(movieHandler::notifications)
         accept(TEXT_HTML).nest {
-            GET("/", htmlHandler::blog)
-            (GET("/{slug}") and !GET("/favicon.ico")).invoke(htmlHandler::post)
+            GET("/", htmlHandler::list)
+            (GET("/{url}") and !GET("/favicon.ico")).invoke(htmlHandler::movie)
         }
     }
 

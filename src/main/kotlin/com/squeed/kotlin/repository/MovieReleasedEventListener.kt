@@ -15,10 +15,17 @@
  */
 package com.squeed.kotlin.repository
 
-import com.squeed.kotlin.model.User
+import com.squeed.kotlin.model.Movie
+import com.squeed.kotlin.model.MovieReleasedEvent
+import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener
+import org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent
+import org.springframework.stereotype.Component
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import org.springframework.stereotype.Repository
+@Component
+class MovieReleasedEventListener(private val movieReleasedEventRepository: MovieReleasedEventRepository) : AbstractMongoEventListener<Movie>() {
 
-@Repository
-interface UserRepository : ReactiveCrudRepository<User, String>
+    override fun onAfterSave(event: AfterSaveEvent<Movie>) {
+        movieReleasedEventRepository.save(MovieReleasedEvent(event.source.url, event.source.title)).block()
+    }
+
+}
