@@ -15,9 +15,9 @@
  */
 package com.squeed.kotlin.web
 
-import io.spring.deepdive.MarkdownConverter
-import io.spring.deepdive.repository.PostRepository
-import io.spring.deepdive.repository.UserRepository
+import com.squeed.kotlin.MarkdownConverter
+import com.squeed.kotlin.repository.PostRepository
+import com.squeed.kotlin.repository.UserRepository
 import org.springframework.stereotype.Component
 
 import org.springframework.web.reactive.function.server.ServerRequest

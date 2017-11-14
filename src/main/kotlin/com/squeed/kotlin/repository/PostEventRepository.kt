@@ -1,6 +1,6 @@
 package com.squeed.kotlin.repository
 
-import io.spring.deepdive.model.PostEvent
+import com.squeed.kotlin.model.PostEvent
 import org.springframework.data.mongodb.repository.Tailable
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import org.springframework.stereotype.Repository

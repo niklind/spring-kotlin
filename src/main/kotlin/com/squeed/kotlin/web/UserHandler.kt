@@ -15,7 +15,7 @@
  */
 package com.squeed.kotlin.web
 
-import io.spring.deepdive.repository.UserRepository
+import com.squeed.kotlin.repository.UserRepository
 import org.springframework.stereotype.Component
 
 import org.springframework.web.reactive.function.server.ServerRequest

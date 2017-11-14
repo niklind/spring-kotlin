@@ -15,7 +15,7 @@
  */
 package com.squeed.kotlin.repository
 
-import io.spring.deepdive.model.User
+import com.squeed.kotlin.model.User
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import org.springframework.stereotype.Repository

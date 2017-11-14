@@ -15,11 +15,11 @@
  */
 package com.squeed.kotlin.web
 
-import io.spring.deepdive.MarkdownConverter
-import io.spring.deepdive.formatDate
-import io.spring.deepdive.model.Post
-import io.spring.deepdive.model.User
-import io.spring.deepdive.repository.UserRepository
+import com.squeed.kotlin.MarkdownConverter
+import com.squeed.kotlin.formatDate
+import com.squeed.kotlin.model.Post
+import com.squeed.kotlin.model.User
+import com.squeed.kotlin.repository.UserRepository
 
 data class PostDto(
         val slug: String,

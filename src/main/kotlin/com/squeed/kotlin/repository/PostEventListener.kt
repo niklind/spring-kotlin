@@ -15,8 +15,8 @@
  */
 package com.squeed.kotlin.repository
 
-import io.spring.deepdive.model.Post
-import io.spring.deepdive.model.PostEvent
+import com.squeed.kotlin.model.Post
+import com.squeed.kotlin.model.PostEvent
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener
 import org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent
 import org.springframework.stereotype.Component

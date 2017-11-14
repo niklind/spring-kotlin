@@ -15,7 +15,7 @@
  */
 package com.squeed.kotlin
 
-import io.spring.deepdive.model.User
+import com.squeed.kotlin.model.User
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

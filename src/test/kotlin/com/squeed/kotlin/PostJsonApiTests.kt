@@ -17,8 +17,8 @@ package com.squeed.kotlin
 
 import java.time.LocalDateTime
 
-import io.spring.deepdive.model.Post
-import io.spring.deepdive.model.PostEvent
+import com.squeed.kotlin.model.Post
+import com.squeed.kotlin.model.PostEvent
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus

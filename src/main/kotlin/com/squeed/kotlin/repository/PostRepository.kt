@@ -15,7 +15,7 @@
  */
 package com.squeed.kotlin.repository
 
-import io.spring.deepdive.model.Post
+import com.squeed.kotlin.model.Post
 import org.springframework.data.mongodb.repository.Tailable
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository

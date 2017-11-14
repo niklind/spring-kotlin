@@ -19,11 +19,11 @@ package com.squeed.kotlin
 import java.time.LocalDateTime
 import java.util.Arrays
 
-import io.spring.deepdive.model.Post
-import io.spring.deepdive.model.PostEvent
-import io.spring.deepdive.model.User
-import io.spring.deepdive.repository.PostRepository
-import io.spring.deepdive.repository.UserRepository
+import com.squeed.kotlin.model.Post
+import com.squeed.kotlin.model.PostEvent
+import com.squeed.kotlin.model.User
+import com.squeed.kotlin.repository.PostRepository
+import com.squeed.kotlin.repository.UserRepository
 
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component

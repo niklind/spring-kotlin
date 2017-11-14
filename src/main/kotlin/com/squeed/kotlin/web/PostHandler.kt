@@ -15,10 +15,10 @@
  */
 package com.squeed.kotlin.web
 
-import io.spring.deepdive.MarkdownConverter
-import io.spring.deepdive.model.Post
-import io.spring.deepdive.repository.PostEventRepository
-import io.spring.deepdive.repository.PostRepository
+import com.squeed.kotlin.MarkdownConverter
+import com.squeed.kotlin.model.Post
+import com.squeed.kotlin.repository.PostEventRepository
+import com.squeed.kotlin.repository.PostRepository
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.*
