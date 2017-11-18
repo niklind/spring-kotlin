@@ -40,43 +40,85 @@ class DatabaseInitializer(
         ops.createCollection(MovieReleasedEvent::class.java, CollectionOptions.empty().capped().size(10000))
 
         val coppola = Director("coppola", "Francis", "Coppola")
-        val darabont = Director("darabont", "Frank", "Darabont")
-        val spielberg = Director("spielberg", "Stephen", "Speielberg")
+        val coppola2 = Director("coppola2", "Sofia", "Coppola")
+        val nolan = Director("nolan", "Christopher", "Nolan")
+        val spielberg = Director("spielberg", "Stephen", "Spielberg")
         val scorsese = Director("scorsese", "Martin", "Scorsese")
-        val curtiz = Director("curtiz", "Michael", "Curtiz")
 
-        directorRepository.saveAll(Arrays.asList(coppola, darabont, spielberg, scorsese, curtiz)).blockLast()
+        val boll = Director("boll", "Uwe", "Boll")
+
+        directorRepository.saveAll(Arrays.asList(coppola, coppola2, nolan, spielberg, scorsese, boll)).blockLast()
 
         val godfatherTitle = "The Godfather"
         val godfatherPost = Movie(
                 godfatherTitle.urlify(),
                 godfatherTitle,
                 """The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.""".trimMargin(),
-                """Some example plot""".trimMargin(),
+                """""".trimMargin(),
                 "coppola",
                 LocalDateTime.of(1972, 1, 1, 0, 0)
         )
 
-        val shawshankTitle = "The Shawshank Redemption"
-        val shawshankPost = Movie(
-                shawshankTitle.urlify(),
-                shawshankTitle,
-                """Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.""".trimMargin(),
-                """Another example plot""".trimMargin(),
-                "darabont",
-                LocalDateTime.of(1994, 1, 1, 0, 0)
+        val lostTitle = "Lost in Translation"
+        val lostPost = Movie(
+                lostTitle.urlify(),
+                lostTitle,
+                """A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.""".trimMargin(),
+                """""".trimMargin(),
+                "coppola2",
+                LocalDateTime.of(2003, 1, 1, 0, 0)
         )
 
-        val schindlerTitle = "Schindler's List"
-        val schindlerPost = Movie(
-                schindlerTitle.urlify(),
-                schindlerTitle,
-                """In German-occupied Poland during World War II, Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazi Germans.""".trimMargin(),
-                """A third example plot""".trimMargin(),
-                "darabont",
+        val jurassicTitle = "Jurassic Park"
+        val jurassicPost = Movie(
+                jurassicTitle.urlify(),
+                jurassicTitle,
+                """During a preview tour, a theme park suffers a major power breakdown that allows its cloned dinosaur exhibits to run amok.""".trimMargin(),
+                """""".trimMargin(),
+                "spielberg",
                 LocalDateTime.of(1993, 1, 1, 0, 0)
         )
 
-        movieRepository.saveAll(Arrays.asList(godfatherPost, shawshankPost, schindlerPost)).blockLast()
+        val etTitle = "E.T"
+        val etPost = Movie(
+                etTitle.urlify(),
+                etTitle,
+                """A troubled child summons the courage to help a friendly alien escape Earth and return to his home world.""".trimMargin(),
+                """""".trimMargin(),
+                "spielberg",
+                LocalDateTime.of(1982, 1, 1, 0, 0)
+        )
+
+        val wolfTitle = "The Wolf of Wall Street"
+        val wolfPost = Movie(
+                wolfTitle.urlify(),
+                wolfTitle,
+                """Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.""".trimMargin(),
+                """""".trimMargin(),
+                "scorsese",
+                LocalDateTime.of(2013, 1, 1, 0, 0)
+        )
+
+        val batmanTitle = "The Dark Knight"
+        val batmanPost = Movie(
+                batmanTitle.urlify(),
+                batmanTitle,
+                """When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham, the Dark Knight must accept one of the greatest psychological and physical tests of his ability to fight injustice.""".trimMargin(),
+                """""".trimMargin(),
+                "nolan",
+                LocalDateTime.of(2008, 1, 1, 0, 0)
+        )
+
+        val bluberellaTitle = "Bluberella"
+        val bluberellaPost = Movie(
+                bluberellaTitle.urlify(),
+                bluberellaTitle,
+                """An action comedy centered on an overweight woman whose footsteps cause explosions and whose dual swords are used against anyone who makes fun of her.""".trimMargin(),
+                """""".trimMargin(),
+                "boll",
+                LocalDateTime.of(2011, 1, 1, 0, 0)
+        )
+
+        movieRepository.saveAll(Arrays.asList(godfatherPost, lostPost, jurassicPost, etPost, wolfPost, batmanPost, bluberellaPost)).blockLast()
     }
 }
