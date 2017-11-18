@@ -56,6 +56,6 @@ class MovieHandler(private val movieRepository: MovieRepository,
             ok().body(movieRepository.deleteById(req.pathVariable("url")))
 
     fun notifications(req: ServerRequest) =
-            ok().bodyToServerSentEvents(notifications)
+            ok().bodyToServerSentEvents(notifications.filter{it.director != "boll"})
 
 }

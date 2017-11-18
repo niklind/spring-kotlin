@@ -7,7 +7,7 @@
 let eventSource = new EventSource("/api/movie/notifications");
 eventSource.addEventListener("message", function(e) {
     let movie = JSON.parse(e.data);
-    let notification = new Notification(movie.title);
+    let notification = new Notification("\"" + movie.title + "\" by " + movie.director + " was just released!");
     notification.onclick = function() {
         window.location.href = "/" + movie.url;
     };

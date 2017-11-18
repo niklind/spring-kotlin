@@ -43,6 +43,7 @@ class Router(private val htmlHandler: HtmlHandler,
         (GET("/api/movie/notifications") and accept(TEXT_EVENT_STREAM)).invoke(movieHandler::notifications)
         accept(TEXT_HTML).nest {
             GET("/", htmlHandler::list)
+            GET("/good", htmlHandler::good)
             (GET("/{url}") and !GET("/favicon.ico")).invoke(htmlHandler::movie)
         }
     }

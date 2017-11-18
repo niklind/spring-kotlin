@@ -32,6 +32,12 @@ class HtmlHandler(private val directorRepository: DirectorRepository, private va
                     "movies" to movieRepository.findAll().flatMap { it.toDto(directorRepository, markdownConverter) }
             ))
 
+    fun good(req: ServerRequest) = ok()
+            .render("list", mapOf(
+                    "title" to "A Good Movie List",
+                    "movies" to movieRepository.findAll().filter { it.director != "boll" }.flatMap { it.toDto(directorRepository, markdownConverter) }
+            ))
+
     fun movie(req: ServerRequest) = ok()
             .render("movie", mapOf("movie" to movieRepository.findById(req.pathVariable("url")).flatMap { it.toDto(directorRepository, markdownConverter) }.switchIfEmpty(IllegalArgumentException("Wrong movie url provided").toMono())))
 

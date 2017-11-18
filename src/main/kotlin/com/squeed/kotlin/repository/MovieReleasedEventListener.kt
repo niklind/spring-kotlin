@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component
 class MovieReleasedEventListener(private val movieReleasedEventRepository: MovieReleasedEventRepository) : AbstractMongoEventListener<Movie>() {
 
     override fun onAfterSave(event: AfterSaveEvent<Movie>) {
-        movieReleasedEventRepository.save(MovieReleasedEvent(event.source.url, event.source.title)).block()
+        movieReleasedEventRepository.save(MovieReleasedEvent(event.source.url, event.source.title, event.source.director)).block()
     }
 
 }
