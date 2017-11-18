@@ -1,6 +1,6 @@
 # A reactive Spring 5 / Spring Boot 2 app written in Kotlin
 
-This is an example application for Javaforum Gothenburg Q4 2017 together with @westera to demonstrate Spring 5 / Spring Boot 2 using Kotlin. It's based on [spring-kotlin-deepdive](https://github.com/sdeleuze/spring-kotlin-deepdive) by [Sébastien Deleuze](https://github.com/sdeleuze/)
+This is an example application for Javaforum Gothenburg Q4 2017 together with [Andreas Wester](https://github.com/westera/) to demonstrate Spring 5 / Spring Boot 2 using Kotlin. It's based on [spring-kotlin-deepdive](https://github.com/sdeleuze/spring-kotlin-deepdive) by [Sébastien Deleuze](https://github.com/sdeleuze/)
 
 ## Where to go from here
 
