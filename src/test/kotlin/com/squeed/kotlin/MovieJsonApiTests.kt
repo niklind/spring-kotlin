@@ -15,75 +15,59 @@
  */
 package com.squeed.kotlin
 
-import java.time.LocalDateTime
-
 import com.squeed.kotlin.model.Movie
-import com.squeed.kotlin.model.MovieReleasedEvent
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.client.bodyToFlux
 import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.test.test
+import java.time.LocalDateTime
 
 class MovieJsonApiTests : AbstractIntegrationTests() {
 
     @Test
     fun `Assert findAll JSON API is parsed correctly and contains 3 elements`() {
-        client.get().uri("/api/post/").retrieve().bodyToFlux<Movie>()
+        client.get().uri("/api/movie/").retrieve().bodyToFlux<Movie>()
                 .test()
-                .expectNextCount(3)
+                .expectNextCount(7)
                 .verifyComplete()
     }
 
     @Test
     fun `Verify findOne JSON API`() {
-        client.get().uri("/api/post/reactor-bismuth-is-out").retrieve().bodyToMono<Movie>()
+        client.get().uri("/api/movie/the-wolf-of-wall-street").retrieve().bodyToMono<Movie>()
                 .test()
                 .consumeNextWith {
-                    assertThat(it.title).isEqualTo("Reactor Bismuth is out")
-                    assertThat(it.headline).startsWith("It is my great pleasure to")
-                    assertThat(it.content).startsWith("With the release of")
-                    assertThat(it.addedAt).isEqualTo(LocalDateTime.of(2017, 9, 28, 12, 0))
-                    assertThat(it.author).isEqualTo("simonbasle")
-                }.verifyComplete()
-    }
-
-    @Test
-    fun `Verify findOne JSON API with Markdown converter`() {
-        client.get().uri("/api/post/reactor-bismuth-is-out?converter=markdown").retrieve().bodyToMono<Movie>()
-                .test()
-                .consumeNextWith {
-                    assertThat(it.title).startsWith("Reactor Bismuth is out")
-                    assertThat(it.headline).doesNotContain("**3.1.0.RELEASE**").contains("<strong>3.1.0.RELEASE</strong>")
-                    assertThat(it.content).doesNotContain("[Spring Framework 5.0](https://spring.io/blog/2017/09/28/spring-framework-5-0-goes-ga)").contains("<a href=\"https://spring.io/blog/2017/09/28/spring-framework-5-0-goes-ga\">")
-                    assertThat(it.addedAt).isEqualTo(LocalDateTime.of(2017, 9, 28, 12, 0))
-                    assertThat(it.author).isEqualTo("simonbasle")
+                    assertThat(it.title).isEqualTo("The Wolf of Wall Street")
+                    assertThat(it.headline).startsWith("Based on the true story of Jordan Belfort")
+                    assertThat(it.plot).isEqualTo("")
+                    assertThat(it.releaseDate).isEqualTo(LocalDateTime.of(2013, 1, 1, 0, 0))
+                    assertThat(it.director).isEqualTo("scorsese")
                 }.verifyComplete()
     }
 
     @Test
     fun `Verify findOne JSON API with invalid converter`() {
-        client.get().uri("/api/post/reactor-bismuth-is-out?converter=foo").exchange()
+        client.get().uri("/api/movie/reactor-bismuth-is-out?converter=foo").exchange()
                 .test()
                 .consumeNextWith { assertThat(it.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR) }
                 .verifyComplete()
     }
 
-    @Test
-    fun `Verify post JSON API and notifications via SSE`() {
-        client.get().uri("/api/post/notifications").accept(MediaType.TEXT_EVENT_STREAM).retrieve().bodyToFlux<MovieReleasedEvent>()
-                .take(1)
-                .doOnSubscribe {
-                    client.post().uri("/api/post/").syncBody(Movie("foo", "Foo", "foo", "foo", "mark", LocalDateTime.now())).exchange().subscribe()
-                }
-                .test()
-                .consumeNextWith {
-                    assertThat(it.slug).isEqualTo("foo")
-                    assertThat(it.title).isEqualTo("Foo")
-                }
-                .verifyComplete()
-    }
+//    @Test
+//    fun `Verify movie JSON API and notifications via SSE`() {
+//        client.get().uri("/api/movie/notifications").accept(MediaType.TEXT_EVENT_STREAM).retrieve().bodyToFlux<MovieReleasedEvent>()
+//                .take(1)
+//                .doOnSubscribe {
+//                    client.post().uri("/api/movie/").syncBody(Movie("foo", "Foo", "foo", "foo", "coppola", LocalDateTime.now())).exchange().subscribe()
+//                }
+//                .test()
+//                .consumeNextWith {
+//                    assertThat(it.url).isEqualTo("foo")
+//                    assertThat(it.title).isEqualTo("Foo")
+//                }
+//                .verifyComplete()
+//    }
 
 }

@@ -21,6 +21,6 @@ class FunnyTests {
 
     @Test
     fun `Why Spring ❤ Kotlin`() {
-        println("Because I can use emoj in function names \uD83D\uDE09")
+        println("Because I can use emoji in function names \uD83D\uDE09")
     }
 }

@@ -1,0 +1,8 @@
+{
+	"url": "a-great-movie",
+	"title": "A great new movie!",
+	"headline": "A very good movie",
+	"plot": "It might even make the imdb top 10!",
+	"director": "spielberg",
+	"releaseDate": [2017, 10, 24, 18, 55]
+}

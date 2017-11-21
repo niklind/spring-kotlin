@@ -14,24 +14,24 @@ class HtmlTests : AbstractIntegrationTests() {
                 .test()
                 .consumeNextWith {
                     assertThat(it)
-                            .contains("Reactor Bismuth is out")
-                            .contains("September 28th")
-                            .contains("Sebastien")
-                            .doesNotContain("brand-new generation")
+                            .contains("The Godfather")
+                            .contains("January 1st")
+                            .contains("Francis")
+                            .doesNotContain("Steve")
                 }.verifyComplete()
     }
 
     @Test
     fun `Assert content on blog post page`() {
-        client.get().uri("/spring-framework-5-0-goes-ga").retrieve().bodyToMono<String>()
+        client.get().uri("/jurassic-park").retrieve().bodyToMono<String>()
                 .test()
                 .consumeNextWith {
                     assertThat(it)
-                            .contains("Spring Framework 5.0 goes GA")
-                            .contains("Dear Spring community")
-                            .contains("brand-new generation")
-                            .contains("Juergen")
-                            .doesNotContain("Sebastien")
+                            .contains("Jurassic Park")
+                            .contains("amok")
+                            .contains("cloned dinosaur")
+                            .contains("Stephen")
+                            .doesNotContain("Uwe")
                 }.verifyComplete()
     }
 
