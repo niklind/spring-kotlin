@@ -27,21 +27,21 @@ class DirectorJsonApiTests : AbstractIntegrationTests() {
 
     @Test
     fun `Assert FindAll JSON API is parsed correctly and contains 11 elements`() {
-        client.get().uri("/api/user/").retrieve().bodyToFlux<Director>()
+        client.get().uri("/api/director/").retrieve().bodyToFlux<Director>()
                 .test()
-                .expectNextCount(11)
+                .expectNextCount(6)
                 .verifyComplete()
     }
 
     @Test
     fun `Verify findOne JSON API`() {
-        client.get().uri("/api/user/MkHeck").retrieve().bodyToMono<Director>()
+        client.get().uri("/api/director/boll").retrieve().bodyToMono<Director>()
                 .test()
                 .consumeNextWith {
-                    assertThat(it.login).isEqualTo("MkHeck")
-                    assertThat(it.firstname).isEqualTo("Mark")
-                    assertThat(it.lastname).isEqualTo("Heckler")
-                    assertThat(it.description).startsWith("Spring Developer Advocate")
+                    assertThat(it.id).isEqualTo("boll")
+                    assertThat(it.firstname).isEqualTo("Uwe")
+                    assertThat(it.lastname).isEqualTo("Boll")
+                    assertThat(it.description).isEqualTo(null)
                 }.verifyComplete()
     }
 

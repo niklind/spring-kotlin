@@ -46,7 +46,9 @@ class MovieHandler(private val movieRepository: MovieRepository,
                                         headline = markdownConverter.invoke(it.headline),
                                         plot = markdownConverter.invoke(it.plot))
                             }
-                        else IllegalArgumentException("Only markdown converter is supported").toMono() }
+                        else
+                            IllegalArgumentException("Only markdown converter is supported").toMono()
+                    }
                     .orElse(movieRepository.findById(req.pathVariable("url"))))
 
     fun save(req: ServerRequest) =
